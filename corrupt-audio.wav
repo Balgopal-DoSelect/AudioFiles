@@ -1,0 +1,362 @@
+{
+	"info": {
+		"_postman_id": "a4f43b4a-ffb6-4999-97d7-95522800857f",
+		"name": "Agentic Ai interview flow",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44781624",
+		"_collection_link": "https://sahibpratapsingh.postman.co/workspace/Sahib-Pratap-Singh's-Workspace~54eca211-c973-4608-8b10-1d2800792860/collection/44781624-a4f43b4a-ffb6-4999-97d7-95522800857f?action=share&source=collection_link&creator=44781624"
+	},
+	"item": [
+		{
+			"name": "Upload Jd",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "User-Session-Token",
+						"value": "<token>"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"contentType": "application/pdf",
+							"type": "file",
+							"src": "/path/to/jd.pdf"
+						},
+						{
+							"key": "upload_type",
+							"value": "generic",
+							"type": "text"
+						},
+						{
+							"key": "source",
+							"value": "agentic-interview",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "jd.pdf",
+							"type": "text"
+						},
+						{
+							"key": "file_size",
+							"value": "182344",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://interview-api.agentic.stg1.chsh.in/rpc/upload",
+					"protocol": "https",
+					"host": [
+						"interview-api",
+						"agentic",
+						"stg1",
+						"chsh",
+						"in"
+					],
+					"path": [
+						"rpc",
+						"upload"
+					]
+				},
+				"description": "Generated from cURL: curl -X POST 'https://interview-api.agentic.stg1.chsh.in/rpc/upload' \\\n  -H 'User-Session-Token: <token>' \\\n  -F 'file=@/path/to/jd.pdf;type=application/pdf' \\\n  -F 'upload_type=generic' \\\n  -F 'source=agentic-interview' \\\n  -F 'name=jd.pdf' \\\n  -F 'file_size=182344'\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Interview Plan",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "User-Session-Token",
+						"value": "<token>"
+					}
+				],
+				"url": {
+					"raw": "https://interview-api.agentic.stg1.chsh.in/interview-ai/api/v1/ai-interview/plan",
+					"protocol": "https",
+					"host": [
+						"interview-api",
+						"agentic",
+						"stg1",
+						"chsh",
+						"in"
+					],
+					"path": [
+						"interview-ai",
+						"api",
+						"v1",
+						"ai-interview",
+						"plan"
+					]
+				},
+				"description": "Generated from cURL: curl --location 'https://interview-api.agentic.stg1.chsh.in/interview-ai/api/v1/ai-interview/plan' \\\n  --header 'User-Session-Token: <token>'\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Scope Save",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Central-Company-ID",
+						"value": "42",
+						"disabled": true
+					},
+					{
+						"key": "X-Central-User-ID",
+						"value": "12387",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "User-Session-Token",
+						"value": "{{user_session_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"section\": \"SCOPE\",\n    \"data\": {\n      \"role_name\": \"Lead Engineer (Python)\",\n      \"min_experience\": 5,\n      \"max_experience\": 8,\n      \"must_have_skills\": [\"Python\", \"Django\"],\n      \"good_to_have_skills\": [\"AWS\"],\n      \"interview_duration\": 25,\n      \"question_type\": \"CONVERSATIONAL\",\n      \"window_type\": \"SCHEDULED\",\n      \"interview_start_date\": \"2026-09-15\",\n      \"interview_start_time\": \"10:00:00\",\n      \"interview_end_date\": \"2026-09-20\",\n      \"interview_end_time\": \"18:00:00\",\n      \"timezone\": \"Asia/Kolkata\"\n    }\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{environment}}}/interview-ai/api/v1/ai-interview/plan",
+					"host": [
+						"{{environment}}}"
+					],
+					"path": [
+						"interview-ai",
+						"api",
+						"v1",
+						"ai-interview",
+						"plan"
+					]
+				},
+				"description": "Generated from cURL: curl --location 'https://interview-api.agentic.stg1.chsh.in/interview-ai/api/v1/ai-interview/plan' \\\n  --header 'X-Central-Company-ID: 42' \\\n  --header 'X-Central-User-ID: 12387' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"section\": \"SCOPE\",\n    \"data\": {\n      \"role_name\": \"Lead Engineer (Python)\",\n      \"min_experience\": 5,\n      \"max_experience\": 8,\n      \"must_have_skills\": [\"Python\", \"Django\", \"PostgreSQL\"],\n      \"good_to_have_skills\": [\"Celery\", \"AWS\"],\n      \"interview_duration\": 30,\n      \"question_type\": \"CONVERSATIONAL\",\n      \"window_type\": \"OPEN\"\n    }\n  }'\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Interview Questions",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "User-Session-Token",
+						"value": "<token>"
+					}
+				],
+				"url": {
+					"raw": "https://interview-api.agentic.stg1.chsh.in/interview-ai/api/v1/ai-interview/plan?section=QUESTIONS",
+					"protocol": "https",
+					"host": [
+						"interview-api",
+						"agentic",
+						"stg1",
+						"chsh",
+						"in"
+					],
+					"path": [
+						"interview-ai",
+						"api",
+						"v1",
+						"ai-interview",
+						"plan"
+					],
+					"query": [
+						{
+							"key": "section",
+							"value": "QUESTIONS"
+						}
+					]
+				},
+				"description": "Generated from cURL: curl --location 'https://interview-api.agentic.stg1.chsh.in/interview-ai/api/v1/ai-interview/plan?section=QUESTIONS' \\\n  --header 'User-Session-Token: <token>'\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Questions Save",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Central-Company-ID",
+						"value": "42",
+						"disabled": true
+					},
+					{
+						"key": "X-Central-User-ID",
+						"value": "12387",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "User-Session-Token",
+						"value": "{{user_session_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"section\": \"QUESTIONS\",\n    \"data\": {\n      \"questions\": [\n        {\n          \"name\": \"Scaling a Django API\",\n          \"description\": \"Walk through how you would scale a read-heavy Django service.\",\n          \"must_have_skills\": [\"Python\", \"Django\"],\n          \"good_to_have_skills\": [\"Redis\"],\n          \"competencies\": [\"Job Related Skills\", \"Problem Solving\"],\n          \"solving_time\": 10,\n          \"level\": \"MEDIUM\"\n        },\n        {\n          \"name\": \"Debugging a slow query\",\n          \"description\": \"A PostgreSQL query regressed in production. How do you approach it?\",\n          \"must_have_skills\": [\"PostgreSQL\"],\n          \"good_to_have_skills\": [],\n          \"competencies\": [\"Problem Solving\"],\n          \"solving_time\": 10,\n          \"level\": \"EASY\"\n        }\n      ]\n    }\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{environment}}/interview-ai/api/v1/ai-interview/plan",
+					"host": [
+						"{{environment}}"
+					],
+					"path": [
+						"interview-ai",
+						"api",
+						"v1",
+						"ai-interview",
+						"plan"
+					]
+				},
+				"description": "Generated from cURL: curl --location 'https://interview-api.agentic.stg1.chsh.in/interview-ai/api/v1/ai-interview/plan' \\\n  --header 'X-Central-Company-ID: 42' \\\n  --header 'X-Central-User-ID: 12387' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"section\": \"QUESTIONS\",\n    \"data\": {\n      \"questions\": [\n        {\n          \"name\": \"Scaling a Django API\",\n          \"description\": \"Walk through how you would scale a read-heavy Django service.\",\n          \"must_have_skills\": [\"Python\", \"Django\"],\n          \"good_to_have_skills\": [\"Redis\"],\n          \"competencies\": [\"Job Related Skills\", \"Problem Solving\"],\n          \"solving_time\": 10,\n          \"level\": \"MEDIUM\"\n        },\n        {\n          \"name\": \"Debugging a slow query\",\n          \"description\": \"A PostgreSQL query regressed in production. How do you approach it?\",\n          \"must_have_skills\": [\"PostgreSQL\"],\n          \"good_to_have_skills\": [],\n          \"competencies\": [\"Problem Solving\"],\n          \"solving_time\": 10,\n          \"level\": \"EASY\"\n        }\n      ]\n    }\n  }'\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Settings",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "User-Session-Token",
+						"value": "<token>"
+					}
+				],
+				"url": {
+					"raw": "https://interview-api.agentic.stg1.chsh.in/interview-ai/api/v1/ai-interview/plan?section=SETTINGS",
+					"protocol": "https",
+					"host": [
+						"interview-api",
+						"agentic",
+						"stg1",
+						"chsh",
+						"in"
+					],
+					"path": [
+						"interview-ai",
+						"api",
+						"v1",
+						"ai-interview",
+						"plan"
+					],
+					"query": [
+						{
+							"key": "section",
+							"value": "SETTINGS"
+						}
+					]
+				},
+				"description": "Generated from cURL: curl --location 'https://interview-api.agentic.stg1.chsh.in/interview-ai/api/v1/ai-interview/plan?section=SETTINGS' \\\n  --header 'User-Session-Token: <token>'\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Settings Save",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Central-Company-ID",
+						"value": "42"
+					},
+					{
+						"key": "X-Central-User-ID",
+						"value": "12387"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"section\": \"SETTINGS\",\n    \"data\": {\n      \"ai_follow_up\": true,\n      \"depth\": 2,\n      \"is_cv_questions_enabled\": true,\n      \"is_screen_sharing_enabled\": true,\n      \"secure_browser_enabled\": false\n    }\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://interview-api.agentic.stg1.chsh.in/interview-ai/api/v1/ai-interview/plan",
+					"protocol": "https",
+					"host": [
+						"interview-api",
+						"agentic",
+						"stg1",
+						"chsh",
+						"in"
+					],
+					"path": [
+						"interview-ai",
+						"api",
+						"v1",
+						"ai-interview",
+						"plan"
+					]
+				},
+				"description": "Generated from cURL: curl --location 'https://interview-api.agentic.stg1.chsh.in/interview-ai/api/v1/ai-interview/plan' \\\n  --header 'X-Central-Company-ID: 42' \\\n  --header 'X-Central-User-ID: 12387' \\\n  --header 'Content-Type: application/json' \\\n  --data '{\n    \"section\": \"SETTINGS\",\n    \"data\": {\n      \"ai_follow_up\": true,\n      \"depth\": 2,\n      \"is_cv_questions_enabled\": true,\n      \"is_screen_sharing_enabled\": true,\n      \"secure_browser_enabled\": false\n    }\n  }'\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Full Plan",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "User-Session-Token",
+						"value": "<token>"
+					}
+				],
+				"url": {
+					"raw": "https://interview-api.agentic.stg1.chsh.in/interview-ai/api/v1/ai-interview/plan",
+					"protocol": "https",
+					"host": [
+						"interview-api",
+						"agentic",
+						"stg1",
+						"chsh",
+						"in"
+					],
+					"path": [
+						"interview-ai",
+						"api",
+						"v1",
+						"ai-interview",
+						"plan"
+					]
+				},
+				"description": "Generated from cURL: curl --location 'https://interview-api.agentic.stg1.chsh.in/interview-ai/api/v1/ai-interview/plan' \\\n  --header 'User-Session-Token: <token>'\n"
+			},
+			"response": []
+		}
+	]
+}
