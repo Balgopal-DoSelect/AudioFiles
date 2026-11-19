@@ -28,6 +28,7 @@ If any check fails, the question is not evaluated. Each of its competencies is s
 | 6 | Upload error (URL not found) | none, a broken URL | `download_failed` |
 | 7 | File too large (over 10 MB) | [sample-speech-5m.wav](#7-file-too-large-over-10-mb) | `file_too_large` |
 | 8 | Recording too long | [long-190s.wav](#8-recording-too-long) | `invalid_duration` |
+| 9 | Attempted but no speech (scored low) | [Audio-Without-voice.mp3](#9-attempted-but-no-speech) | `evaluated` |
 
 ---
 
@@ -159,10 +160,31 @@ ffmpeg -i sample-speech-5m.wav -t 190 -c copy long-190s.wav
 
 ---
 
+### 9. Attempted but no speech
+
+**File:** [Audio-Without-voice.mp3](https://raw.githubusercontent.com/Balgopal-DoSelect/AudioFiles/main/Audio-Without-voice.mp3)
+
+```text
+https://raw.githubusercontent.com/Balgopal-DoSelect/AudioFiles/main/Audio-Without-voice.mp3
+```
+
+**Why it is evaluated:** a readable 12.8 s MP3 (44.1 kHz, stereo, 128 kbps) that has sound but no spoken words. Its loudest point is −12.7 dB and its average −26.3 dB, well above the −50 dB silence limit, so it passes every check. It is converted and sent to the AI service like a real answer.
+
+**Use it for:** the "every question attempted, but answered badly" case. Use this file for every spoken question and wrong options for every MCQ. Every question counts as **scored**, so nothing is A0:
+
+- each question gets `status_code: "evaluated"`;
+- the AI grades the audio low (A1, possibly score 0);
+- `unscored.count` is 0;
+- the overall grade comes from the scores as usual: A1, or `-` when the total is 0.
+
+Compare with case 2, a silent recording, which is flagged and graded A0.
+
+---
+
 ## Where to check the result
 
 - **Webhook / report API:** `solutions[].status_code` for each question.
-- **Solution data:** `extra_data.evaluation_flags` holds the reason code. Every competency in `extra_data.cefr_competencies` is `{"score": 0, "grade": "A0", "transcription": "", "reason": "The file could not be read."}`.
+- **Solution data:** `extra_data.evaluation_flags` holds the reason code. Every competency in `extra_data.cefr_competencies` is `{"score": 0, "grade": "A0", "transcription": "", "reason": "Reason: <reason text>."}`, for example "Reason: silent recording.".
 - **Overall result:** `language_assessment.unscored` gives `{count, total, reasons}`.
   - **Every question fails** (for example, every response uses one of cases 2–8): `cefr_score` is `A0` and `cefr_analysis.analysis` reads "The candidate's English level could not be assessed … Reasons: …".
   - **Some questions are valid:** the overall grade is calculated as usual.
